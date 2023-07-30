@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../store/slices/userApiSlice';
 import { setCredentials } from '../store/slices/authSlice';
 import { toast } from 'react-toastify';
+import SpinnerCom from '../components/SpinnerCom';
 
 function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -14,7 +15,7 @@ function LoginScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [login] = useLoginMutation(); //{ isLoading, error }
+  const [login, { isLoading }] = useLoginMutation(); //{ isLoading, error }
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -60,6 +61,7 @@ function LoginScreen() {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
+        {isLoading && <SpinnerCom />}
         <Button type='submit' variant='primary' className='mt-3'>
           Sign In
         </Button>
