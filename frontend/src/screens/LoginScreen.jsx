@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../store/slices/userApiSlice';
 import { setCredentials } from '../store/slices/authSlice';
+import { toast } from 'react-toastify';
 
 function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -31,7 +32,7 @@ function LoginScreen() {
       dispatch(setCredentials({ ...res }));
       navigate('/');
     } catch (error) {
-      console.log(error?.data?.message || error);
+      toast.error(error?.data?.message || error);
     }
   };
 
